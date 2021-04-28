@@ -1,6 +1,6 @@
 ---
-title: "Presentation Ninja"
-subtitle: "&#x2694;&#xFE0F; xaringan +<br/>&#x1F60E; xaringanthemer"  
+title: "Draft CIC Fancy Slides"
+subtitle: "&#x1F60E;"  
 author: 
   - "Mara Alexeev, MD, MPH"
 date: '`r Sys.Date()`'
