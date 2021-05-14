@@ -49,7 +49,7 @@ library(ggsci)
 library(extrafont)
 library(qcc)
 library(SixSigma)
-#library(runcharter)
+library(runcharter)
 library(magrittr)
 ```
 
@@ -76,6 +76,20 @@ name: colors
 - <span style="color: var(--text-bold-color); font-weight: bold;">Bold Color</span>
 
 - `inline code color`
+
+---
+```{r runchart, echo=FALSE}
+runchart_example <- runcharter(signals,
+           direction = "below",
+           datecol = date, 
+           grpvar = grp,
+           yval = y, 
+           chart_title = "Runs identified",
+           chart_subtitle = "Runs below the median signalling improvement")
+
+runchart_example$runchart
+
+```
 
 ---
 
