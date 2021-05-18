@@ -1,0 +1,187 @@
+---
+title: "Welcome"
+author: "Mara Alexeev"
+date: "Last Updated `r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Welcome
+
+My tiny bio
+
+For context, I started learning R in Spring 2019 with no prior programming experience before.
+
+My affiliations
+
+My contact information
+
+## FYI
+
+You **can't** break anything! Relax and enjoy! If you break some of the code or delete a file, we can easily refresh your workshop setup.
+
+## Goal
+
+Can be overwhelming!! Basic orientation and why it is awesome!
+
+My goal is to get you excited about using R and to introduce you to some of the capabilities of R and RStudio.
+
+Why R will help you with QI
+
+## Prerequisites
+
+-   Computer with internet connection
+
+-   Zoom
+
+-   [Supported browser](%5Bhttps://support.rstudio.com/hc/en-us/articles/227449447-Supported-browsers-for-RStudio-Connect)
+
+-   RStudio Cloud account---***free***
+
+-   Review [preparatory materials](https://commonmark.org/help/tutorial/) to learn Markdown basics---***optional, but useful***
+
+## Inspiration
+
+From this paper[@wong_how_2016]
+
+## Introduction
+
+## Schedule
+
+**Systems check** *\~15 minutes*
+
+-   Confirm RStudio Cloud account works
+
+-   Address starting questions
+
+-   [Survey](https://docs.google.com/forms/d/e/1FAIpQLScwsInqQ5NzJKxhM73rjXHM4stbIw-buBH21cKGniNjkUJ6bg/viewform?usp=sf_link)---Tell me about your R experience
+
+-   Discuss pre-workshop materials
+
+    -   [Markdown Basics](https://commonmark.org/help/tutorial/)
+
+**Introduction** *\~30 minutes*
+
+-   What's what?!?
+
+    -   R (the language and the overall reason)
+
+    -   RStudio IDE (how you interact with R) Why five tools when you can use 1!
+
+    -   RStudioCloud
+
+-   RStudio Cloud orientation
+
+    -   Find the following panes
+
+        -   Console
+
+        -   Environment
+
+        -   Files
+
+        -   Help
+
+-   R Markdown demo
+
+    -   Find your Files pane
+
+        -   Open Workshop_Slides.Rmd
+
+        -   Open the .Rmd file called Demo.Rmd
+
+    -   Identify the following parts of an Demo.Rmd file
+
+        -   YAML Header
+
+        -   Code chunk
+
+        -   Text
+
+-   Knit a document
+
+    -   Confirm you are in the Demo.Rmd file
+
+    -   Find the knit button, press it
+
+    -   Find the file called Demo.html, open it
+
+    -   Go back to Demo.Rmd
+
+    -   Make a change to some ***text*** in the Demo.Rmd
+
+    -   Knit Demo.Rmd again and view the new Demo.html
+
+    -   Change the author in the YAML section in the Demo.Rmd
+
+    -   Knit Demo.Rmd again and view the new Demo.html to confirm author changed
+
+    -   Open Workshop_Slides.Rmd
+
+        -   Knit to pdf
+
+        -   Knit to html
+
+        -   View the two different files
+
+-   Create your own .Rmd from template and knit it!
+
+-   View a [demo GitHub Page](https://maraalexeev.github.io/example_for_CIC_workshop_May_2021/)
+
+**Play** *\~30 minutes*
+
+-   Open Setup.Rmd and work through tasks
+
+    -   Modify cause and effect diagrams within R
+
+    -   Customize tables and graphs for a Failure Modes and Effects Analysis (FMEA) and a Pareto Chart
+
+    -   Learn how to make scatter plots and histograms with `ggplot2`
+
+    -   Create run charts that can update as data is collected with a click of button using `runcharter`
+
+    -   Use the automated bibliographic capabilities of R
+
+**Wrap Up and Discussion** *\~20 minutes*
+
+-   Discussion of participants questions
+
+-   Watch demonstration of publishing to Github Page
+
+-   Next steps suggestions
+
+    -   Download R on local computer
+
+    -   RStudio IDE on local computer
+
+    -   Create a Github Account
+
+    -   Know where to get help!
+
+-   Preview of advanced materials
+
+
+# From the CIC Materials
+
+## What might the attendee be able to do after being in your session?
+
+In this workshop, attendees will learn how to use R to create, analyze, share, and publish the results of quality improvement (QI) projects based on tools published by the Institute for Healthcare Improvement and publishing recommendations from the Journal Of Graduate Medical Education [@wong_how_2016]. This is a plug and play format that allows clinicians to directly create, analyze, and beautifully display their project and results with only a beginner's knowledge of R, R Markdown, and spreadsheets.
+
+## Description of the problem or gap
+
+Many clinical informaticians participate in QI projects as either project leads or in supporting roles---helping other clinicians collect data from EHRs or implement projects within an EHR. There are many tools and guidelines for QI projects, but the tools are not well integrated into a single, comprehensive workflow of a QI project.
+
+## Conclusion
+
+At the end of the workshop, participants will have the knowledge and materials to create a QI project write-up and analysis all within a single R Markdown file. They will learn how to customize the project to suit many QI project proposals. This simplification of the QI project workflow will allow attendees to more quickly prepare QI project proposals and analyze their results. More advanced knowledge of R packages discussed at the workshop will allow users to create highly customized presentations of their work. A standardized tool to create QI projects will eliminate duplicated efforts in project workflows and allow results to be more quickly disseminated within an institution, posted online, or published in a journal.
+
+## Attendee's Take-away Tool
+
+Attendee's will be able to access the QI tools through a publicly available GitHub repository, which they will be able to download and modify for their own purposes. They will also receive a curated selection of advanced resources for further learning.
+
+## Level of content
+
+All content will be accessible to a beginner R user. However, each section of the **Play** part of the workshop will have intermediate and advanced topics embedded in the code for more advanced users to manipulate.

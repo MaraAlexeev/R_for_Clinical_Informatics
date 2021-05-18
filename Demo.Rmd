@@ -1,0 +1,89 @@
+---
+title: "Demo"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Directions
+
+- Knit this
+- Look at the output (it will automatically pop up, so if you have a pop up blocker it might not show up)
+- Then return to the Demo.Rmd file and follow the directions below. 
+
+## YAML
+
+We will not spend much time here. But above in the YAML header (look at the slides if you forgot what the YAML section is), change the text "Your Name Here" to have a different name in the quotation marks. Knit the document to see if you see your new name in the output's header.
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this which is doing a simple calculation. Hit the run button on the R code chunk to see the output of the calculation.
+
+```{r calculations}
+2 + 3
+```
+
+
+## Try out R Markdown Syntax
+
+Looking at your workshop slides or using the rmarkdown-reference.pdf located in the cheatsheets folder in your file pane, try to do the following:
+
+Make this line of text italicized. 
+
+Make this line of text bold.
+
+Strikethrough this text. 
+
+Write something wonderful here, but replace the ", but" with an emdash.
+
+Make a list below this line.
+
+To test to see if you used the correct syntax, knit the document and preview the results. You can knit as many times as you like as you change the syntax. 
+
+## Calculations
+
+Try to write some very simple calculations here.
+
+The R operators are below: 
+
+- Addition: +
+- Subtraction: -
+- Multiplication: *
+- Division: /
+- Exponent: ^
+
+You can try them out in the code chunk below. Press the run button to see the results.
+```{r simple_calculations}
+
+```
+
+## Create an object
+
+In the code block below change the text to the quotations to say some something different.
+
+```{r, echo=FALSE}
+
+my_phrase <- "This is the generic phrase Mara used for the demo."
+
+my_phrase
+```
+Hit the run button of the code chunk. Look in the environment panel of RStudio. Do you see your new phrase?
+
+Now knit your document! Do you see your new phrase in the output?
+
+## Knit to something new!
+
+In the knit dropdown menu, knit to PDF. Take a look at the output. 
+
+## Now the QI bit
+
+When you are done with the demo, go to the files pane and open the file called QI_playground.Rmd.

@@ -1,0 +1,314 @@
+---
+title: "CIC Workshop Fun"
+author: "Your Name Here"
+date: "`r Sys.Date()`"
+output: html_document
+bibliography: qi_workshop.bib
+csl: vancouver-superscript.csl
+link-citations: yes
+---
+
+## R Packages and Libraries
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(readxl)
+library(kableExtra)
+library(gridExtra)
+library(ggsci)
+library(extrafont)
+library(qcc)
+library(SixSigma)
+library(runcharter)
+```
+
+# The Stages of QI
+# Making plots for your QI project
+
+## Cause and Effect Diagrams
+
+```{r}
+cause.and.effect(cause=list(
+                                          Measurements = c("Micrometers", "Microscopes", "Inspectors"),
+                                          Materials = c("Alloys", "Lubricants", "Suppliers"),
+                                          Personnel = c("Shifts", "Supervisors", "Training", "Operators"),
+                                          Environment = c("Condensation", "Moisture"),
+                                          Methods = c("Brake", "Engager", "Angle"),
+                                          Machines = c("Speed", "Lathes", "Bits", "Sockets")),
+                             
+                              effect="Surface Flaws")
+
+```
+
+Here's your first task. Change the code below to make a cause and effect diagram with your own inputs. A simple change to help you get started; find the place in the code below that looks like `effect = "Surface Flaws"` and change it to `effect = "Surface Defects"`. Run the code chunk and see your change in action.
+
+```{r task1, evaluate = FALSE}
+cause.and.effect(cause=list(
+                            Measurements = c("Micrometers", "Microscopes", "Inspectors"),
+                            Materials = c("Alloys", "Lubricants", "Suppliers"),
+                            Personnel = c("Shifts", "Supervisors", "Training", "Operators"),
+                            Environment = c("Condensation", "Moisture"),
+                            Methods = c("Brake", "Engager", "Angle"),
+                            Machines = c("Speed", "Lathes", "Bits", "Sockets")),
+                            
+                 # Hint: it's below me :) 
+                              effect = "Surface Flaws")
+
+```
+
+## Histogram
+
+This data is generated from code in R that creates data based on some different parameters. This is a good way to make the graphs you want before you have the data for your project.
+
+```{r histo}
+pre_cards <- tibble(days = round(runif(100, 0, 21)), intervention = "Before Intervention", clinic = "Cardiology Clinic")
+post_cards <- tibble(days = round(runif(100, 0, 14)), intervention = "After Intervention", clinic = "Cardiology Clinic")
+pre_gi <- tibble(days = round(runif(100, 0, 20)), intervention = "Before Intervention", clinic = "Endocrinology Clinic")
+post_gi <- tibble(days = round(runif(100, 0, 15)), intervention = "After Intervention", clinic = "Endocrinology Clinic")
+
+data_histo <- bind_rows(pre_cards, post_cards, pre_gi, post_gi)
+
+data_histo$intervention <- as_factor(data_histo$intervention)
+data_histo$clinic <- as_factor(data_histo$clinic)
+
+
+
+plot_data_histo <-  ggplot(data_histo, aes(days, fill = clinic)) +
+  geom_histogram(binwidth = 1, color = 'white') +
+  labs(title = "Days between date of encounter and note signed", subtitle = "Adult Patients at XYZ Campus", y = "Number of Notes", x = "Days", caption="Simulated Data") +
+scale_y_continuous(breaks=c(0,4,8,12,16, 20, 24)) +
+  facet_grid(intervention ~ clinic) +
+ 
+
+  # To use for fills, add
+  scale_color_npg(palette = 	"nrc")+
+
+# To use for line and point colors, add
+  scale_fill_npg(palette = 	"nrc") +
+  
+  theme_bw() +
+  theme(legend.position = "none") +
+  
+  theme(text=element_text(family="serif"))
+
+plot_data_histo
+```
+
+Your second task is to:
+
+- change the names of the clinics in the simulated data. Currently they are called Cardiology and Endocrinology Clinic. Watch out it is in two places for each clinic.
+
+- change the labels on the graph. Make up a clinic campus name and replace XYZ campus with your choice.
+
+- uncomment out the code `theme_bw()`
+
+```{r task2, eval=FALSE}
+# This is where the data is generated
+pre_cards <- tibble(days = round(runif(100, 0, 21)), intervention = "Before Intervention", clinic = "Cardiology Clinic")
+post_cards <- tibble(days = round(runif(100, 0, 14)), intervention = "After Intervention", clinic = "Cardiology Clinic")
+pre_gi <- tibble(days = round(runif(100, 0, 20)), intervention = "Before Intervention", clinic = "Endocrinology Clinic")
+post_gi <- tibble(days = round(runif(100, 0, 15)), intervention = "After Intervention", clinic = "Endocrinology Clinic")
+
+data_histo <- bind_rows(pre_cards, post_cards, pre_gi, post_gi)
+
+data_histo$intervention <- as_factor(data_histo$intervention)
+data_histo$clinic <- as_factor(data_histo$clinic)
+
+
+
+plot_data_histo <-  ggplot(data_histo, aes(days, fill = clinic)) +
+  geom_histogram(binwidth = 1, color = 'white') +
+  
+  # Look here
+  
+  labs(title = "Days between date of encounter and note signed", subtitle = "Adult Patients at XYZ Campus", y = "Number of Notes", x = "Days", caption="Simulated Data") +
+scale_y_continuous(breaks=c(0,4,8,12,16, 20, 24)) +
+  facet_grid(intervention ~ clinic) +
+ 
+
+  # To use for fills, add
+  scale_color_npg(palette = 	"nrc")+
+
+# To use for line and point colors, add
+  scale_fill_npg(palette = 	"nrc") +
+  
+ # theme_bw() +
+  theme(legend.position = "none") +
+  
+  theme(text=element_text(family="serif"))
+
+plot_data_histo
+```
+
+## Read Data in from Excel
+
+If you already have data from a project you can read it into R and manipulate it without modifying any of the data in the original files. Many different file formats can be read into R, but here I am using Excel spreadsheet that is stored in this project. All data is simulated, fake, or reproductions of publicly available data. Note: There is an excellent package called `googlesheets4` that makes it easy to import data stored in a Google Sheet into R. 
+
+```{r}
+fake_data <- read_excel("./data/qi_spreadsheet_workshop.xlsx", 
+    sheet = "scatter")
+
+pareto <- read_excel("./data/qi_spreadsheet_workshop.xlsx", 
+    sheet = "Pareto")
+
+fmea <- read_excel("./data/qi_spreadsheet_workshop.xlsx", 
+    sheet = "fmea")
+```
+
+## Failure Modes and Effects Analysis
+
+```{r}
+fmea %>% kable() %>% kable_styling(bootstrap_options = c("striped", "hover"), font_size = 7)
+```
+
+Your third task is to play around with the `kable_styling()` to change the appearance of the graph. Look at options here or use the help search bar to look for kable_styling or type into the console ?kable_styling. 
+
+
+```{r, task3}
+fmea %>% kable() %>% kable_styling(bootstrap_options = c("striped", "hover"), font_size = 10)
+```
+
+## Pareto Chart
+
+```{r pareto}
+
+plot_pareto <- ggplot(pareto, aes(x = reorder(`Error Type`, -`Frequency`), y = `Frequency`)) +
+  geom_col() +
+  labs(title = "Types of Errors Discovered During Surgical Set-up", subtitle = "Pareto Chart", x = " ", y = "Frequency", caption = "Source data from IHI QI Toolkits") +
+  #theme(axis.text.x = element_text(angle = 45)) +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
+  annotate("text", x = 2, y = 75, label = "Vital Few") +
+  annotate("pointrange", x= 2, y = 70, xmin = 1, xmax = 3,
+  colour = "black", size = 1) +
+  annotate("text", x = 6, y = 40, label = "Useful many") +
+  annotate("pointrange", x= 6, y = 35, xmin = 4, xmax = 8,
+  colour = "black", size = 1)
+  
+
+plot_pareto
+```
+
+## Scatter plot
+
+```{r scatter, warning=FALSE}
+
+scatter_plot <- ggplot(fake_data, aes(x = count, y = time, color = resident)) +
+  geom_jitter() +
+  labs(title = "Average Time from Admission Order to Order Reconciliation Completed", subtitle = "Academic Year 2012-2013 \nPGY-2 Residents", caption = "Simulated Data", x = "Number of Residents on Service", y = "Average Time (Mins)") +
+  scale_x_continuous(breaks = (1:10)) +
+  
+  # To use for fills, add
+  scale_color_jama()+
+
+# To use for line and point colors, add
+  scale_fill_lancet() +
+  
+  theme_bw() +
+  
+  scale_color_discrete(name="Service Type") +
+  
+  theme(legend.justification=c(1,0), legend.position=c(0.95,0.4), legend.box.background = element_rect(color = "black")) +
+  
+  theme(text=element_text(family="serif"))
+
+scatter_plot
+```
+
+## Run Charts
+
+[Here](https://www.youtube.com/watch?v=Y2DQp2nkrnk&list=PL4IzsxWztPdljYo7uE5G_R2PtYw3fUReo&index=10) is a great, short talk about Run Charts and background knowledge specific to R by the package author of `runcharter`.
+
+Let's look at the data that comes with the package.
+
+```{r}
+signals <- runcharter::signals
+
+```
+
+```{r}
+
+head(signals, 10) %>% kable() %>% kable_styling()
+
+```
+
+Let's make the plot that came with the package documentation.
+
+```{r}
+
+
+runchart_1 <- signals %>% 
+  runcharter(med_rows = 7, 
+             runlength = 5,
+             direction = "both",
+             datecol = date, 
+              grpvar = grp,
+              yval = y, 
+             chart_title = "Runs in both directions",
+             chart_subtitle = "Runs of 5, from median calculated over first 7 data points in each location")
+
+runchart_1$runchart
+```
+
+Let's just look at `WardX`
+
+```{r}
+wardx <- signals %>% filter(grp == "WardX")
+```
+
+```{r}
+runchart_2 <- wardx %>% 
+  runcharter(med_rows = 7, 
+             runlength = 5,
+             direction = "both",
+             datecol = date, 
+              grpvar = grp,
+              yval = y, 
+             chart_title = "Runs in both directions",
+             chart_subtitle = "Runs of 5, from median calculated over first 7 data points in each location")
+
+runchart_2$runchart
+```
+
+## Citation Management
+
+Locate the `qi_workshop.bib` file in the file pane. Open it up and take a peek so the following will make more sense.
+
+Keeping track of your citations and sources can be hard. There are many options, but the workflow I will share is how to cite using a .bib file and a DOI. My standard practice is using Zotero which has nice integration with RStudio with no effort on the user's part.
+
+Here's me citing the to the paper[@wong_how_2016] that inspired me to make this workshop; it is already in the `qi_workshop.bib` file within this project.
+
+Here is a paper[@fang2019] I semi-randomly found on pubmed.gov examining selective oxidation of things in raw sugar cane. I can cite this using a DOI and then it automatically flows into my `qi_workshop.bib` file!!!
+
+When citing things in an .Rmd have (at least) three options.
+
+1)  Use the syntax of `[@key]` where the key is replaced with the entry, highlighted in blue below, from your `my_generic_citations.bib` file.
+
+```{r, echo=FALSE}
+knitr::include_graphics("./images/using_bib.png")
+
+```
+
+2.  Use the the visual markdown editor and using the insert citation dropdown menu.
+
+```{r, echo=FALSE}
+knitr::include_graphics("./images/rich_text_editor.png")
+
+```
+
+```{r, echo=FALSE}
+knitr::include_graphics("./images/citation_insert.png")
+
+```
+
+3.  Or in the visual markdown editor mode use the keyboard shortcut (on windows here) Control + Shift + F8.
+
+# Side notes
+
+If you use RStudio, you should use projects. I have set this all up for you here, but in general you should use it to manage your data and make it easy to find your data and files and be able to share your code because you will be using relative paths and [not accidentally using absolute paths.](https://github.com/jennybc/here_here#admitting-you-have-a-problem) Don't be overwhelmed by this, but [here is more reading](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects) for your enjoyment later.
+
+# References
