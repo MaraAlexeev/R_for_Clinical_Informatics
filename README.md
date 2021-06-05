@@ -30,6 +30,8 @@ There are tons of great materials to learn R, but **the number one tip** I have 
 
 [bookdown](https://bookdown.org/yihui/bookdown/)
 
+[ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+
 ## On Twitter follow: 
 
 - #rstats
@@ -38,6 +40,8 @@ There are tons of great materials to learn R, but **the number one tip** I have 
 
 - #rmedicine
 
+- #TidyTuesday
+- 
 By following those hashtags, you'll see a lot of other folks doing amazing things.  
 
 ## Conferences
