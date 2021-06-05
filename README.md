@@ -41,7 +41,7 @@ There are tons of great materials to learn R, but **the number one tip** I have 
 - #rmedicine
 
 - #TidyTuesday
-- 
+
 By following those hashtags, you'll see a lot of other folks doing amazing things.  
 
 ## Conferences
